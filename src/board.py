@@ -5,6 +5,7 @@ class Board:
     def __init__(self):
         self.grid = [[0] * 4 for _ in range(4)]
         self.score = 0
+        self._highest_tile = 0
         self._init_tiles()
 
     def _init_tiles(self):
@@ -13,11 +14,14 @@ class Board:
             if empty:
                 row, col = empty.pop(random.randint(0, len(empty) - 1))
                 self.grid[row][col] = 2
+                if self._highest_tile < 2:
+                    self._highest_tile = 2
 
     def clone(self):
         new_board = Board.__new__(Board)
         new_board.grid = [row[:] for row in self.grid]
         new_board.score = self.score
+        new_board._highest_tile = self._highest_tile
         return new_board
 
     def _get_empty_cells(self):
@@ -45,6 +49,8 @@ class Board:
                     new_val = line[i] * 2
                     merged.append(new_val)
                     self.score += new_val
+                    if new_val > self._highest_tile:
+                        self._highest_tile = new_val
                     i += 2
                 else:
                     merged.append(line[i])
@@ -67,6 +73,8 @@ class Board:
                     new_val = line[i] * 2
                     merged.insert(0, new_val)
                     self.score += new_val
+                    if new_val > self._highest_tile:
+                        self._highest_tile = new_val
                     i -= 2
                 else:
                     merged.insert(0, line[i])

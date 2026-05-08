@@ -150,6 +150,6 @@ class Board:
 
     def to_string(self):
         return "\n".join(
-            " ".join(str(c).rjust(4) if c != 0 else "   ." for c in row)
+            " ".join(str(c) if c != 0 else "0" for c in row)
             for row in self.grid
         )

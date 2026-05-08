@@ -21,7 +21,7 @@ class UI:
             values = row.split()
             for i in range(4):
                 value = values[i] if i < len(values) else "0"
-                if value == "0":
+                if value == "0" or value == ".":
                     print("    -    ", end="")
                 else:
                     print(f" {int(value):^7} ", end="")
